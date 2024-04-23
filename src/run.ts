@@ -16,7 +16,7 @@ async function run() {
 	}
 
 	let diff = []
-	await exec.exec(`git diff --name-only origin/${diffBranch} ${sha} | cut -d / -f 1 | uniq | grep -v "\\."`, [], {
+	await exec.exec(`git diff --name-only ${diffBranch} ${sha} | cut -d / -f 1 | uniq | grep -v "\\."`, [], {
 		listeners: {
 			stdout: (data: Buffer) => {
 				let value = data.toString()
