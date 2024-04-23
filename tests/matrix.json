@@ -1,0 +1,22 @@
+[
+  {
+    "service": "app-calculator",
+    "type": "go"
+  },
+  {
+    "service": "app-calendar",
+    "type": "go"
+  },
+  {
+    "service": "app-coverage",
+    "type": "go"
+  },
+  {
+    "service": "app-curves",
+    "type": "go"
+  },
+  {
+    "service": "app-web",
+    "type": "nodejs"
+  }
+]

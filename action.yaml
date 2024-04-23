@@ -1,0 +1,19 @@
+name: Filter action
+description: 'Filter action'
+inputs:
+  list:
+    description: 'Matrix list path'
+    required: true
+  diffBranch:
+    description: 'Diff branch'
+    required: false
+    default: 'master'
+  sha:
+    description: 'SHA'
+    required: true
+outputs:
+  filtered:
+    description: 'Filtered list'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
