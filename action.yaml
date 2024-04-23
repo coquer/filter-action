@@ -8,8 +8,8 @@ inputs:
     description: 'Diff branch'
     required: false
     default: 'master'
-  sha:
-    description: 'SHA'
+  currentBranch:
+    description: 'Current branch'
     required: true
 outputs:
   filtered:

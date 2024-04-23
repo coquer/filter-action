@@ -5,7 +5,7 @@ import * as fs from "node:fs";
 async function run() {
 	const jsonPath = core.getInput('list')
 	const diffBranch = core.getInput('diffBranch')
-	const sha = core.getInput('sha')
+	const currentBranch = core.getInput('currentBranch')
 
 	const content = await fs.promises.readFile(jsonPath, 'utf8')
 	const list = JSON.parse(content)
@@ -16,7 +16,7 @@ async function run() {
 	}
 
 	let diff = []
-	await exec.exec(`git diff --name-only ${diffBranch} ${sha} | cut -d / -f 1 | uniq | grep -v "\\."`, [], {
+	await exec.exec(`git diff --name-only ${diffBranch}..${currentBranch} | cut -d / -f 1 | uniq | grep -v "\\."`, [], {
 		listeners: {
 			stdout: (data: Buffer) => {
 				let value = data.toString()

@@ -26192,7 +26192,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const jsonPath = core.getInput('list');
         const diffBranch = core.getInput('diffBranch');
-        const sha = core.getInput('sha');
+        const currentBranch = core.getInput('currentBranch');
         const content = yield fs.promises.readFile(jsonPath, 'utf8');
         const list = JSON.parse(content);
         if (list.length === 0) {
@@ -26200,7 +26200,7 @@ function run() {
             return;
         }
         let diff = [];
-        yield exec.exec(`git diff --name-only ${diffBranch} ${sha} | cut -d / -f 1 | uniq | grep -v "\\."`, [], {
+        yield exec.exec(`git diff --name-only ${diffBranch}..${currentBranch} | cut -d / -f 1 | uniq | grep -v "\\."`, [], {
             listeners: {
                 stdout: (data) => {
                     let value = data.toString();
