@@ -16,20 +16,15 @@ async function run() {
 		return
 	}
 
-	let diff = []
-	await exec.exec(`git diff --name-only master | cut -d / -f 1 | uniq | grep -v "\\."`, undefined, {
-		listeners: {
-			stdout: (data: Buffer) => {
-				core.info('stdout: ' + data.toString())
-				let value = data.toString()
-				let values = value.split('\n')
-				if (values.length > 0) {
-					// @ts-ignore
-					diff.push(values)
-				}
-			},
-		},
-	})
+	let diff = ''
+	const command = 'git diff --name-only master | cut -d / -f 1 | uniq | grep -v "\\."'
+	try {
+		diff = await execHelper('bash', ['-c', command])
+		core.debug(`Diff: ${diff}`)
+	} catch (error) {
+		// @ts-ignore
+		core.error(error)
+	}
 
 	if (diff.length === 0) {
 		core.info('No files to check')
@@ -49,6 +44,32 @@ async function run() {
 	const filteredListString = JSON.stringify(filteredList)
 
 	core.setOutput('filtered', filteredListString)
+}
+
+
+const execHelper = async (tool, args: string[], options: exec.ExecOptions = {}) => {
+	let stdout = ""
+	let stderr = ""
+
+	const opts = {
+		...options,
+		listeners: {
+			stdout: (data) => {
+				stdout += data.toString()
+			},
+			stderr: (data) => {
+				stderr += data.toString()
+			}
+		}
+	}
+
+	const exitCode = await exec.exec(tool, args, opts)
+	if (exitCode != 0) {
+		const errMsg = `${tool} exited with code: ${exitCode} \n ${stderr}`
+		throw Error(errMsg)
+	}
+
+	return stdout
 }
 
 run().catch(core.setFailed)
