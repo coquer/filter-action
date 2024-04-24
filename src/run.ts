@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
-import * as exec from '@actions/exec'
 import * as fs from "node:fs";
+import { exec as childExec } from 'child_process';
 
 async function run() {
 	const jsonPath = core.getInput('list')
@@ -16,18 +16,18 @@ async function run() {
 	}
 
 	let diff = []
-	await exec.exec(`git diff --name-only ${diffBranch} ${currentBranch} | cut -d / -f 1 | uniq | grep -v "\\."`, [], {
-		listeners: {
-			stdout: (data: Buffer) => {
-				let value = data.toString()
-				let values = value.split('\n')
-				if (values.length > 0) {
-					// @ts-ignore
-					diff.push(values)
-				}
-			},
-		},
-	})
+	childExec(`git diff --name-only ${diffBranch} ${currentBranch} | cut -d / -f 1 | uniq | grep -v "\\."`, (error, stdout, stderr) => {
+		if (error) {
+			core.setFailed(`exec error: ${error}`);
+			return;
+		}
+
+		let values = stdout.split('\n');
+		if (values.length > 0) {
+			// @ts-ignore
+			diff.push(values);
+		}
+	});
 
 	if (diff.length === 0) {
 		core.info('No files to check')
