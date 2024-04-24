@@ -16,12 +16,13 @@ async function run() {
 	}
 
 	let diff = []
-	childExec(`git diff --name-only ${diffBranch} ${currentBranch} | cut -d / -f 1 | uniq | grep -v "\\."`, (error, stdout, stderr) => {
+	childExec(`git diff --name-only master | cut -d / -f 1 | uniq | grep -v "\\."`, (error, stdout, stderr) => {
 		if (error) {
 			core.setFailed(`exec error: ${error}`);
 			return;
 		}
 
+		core.info(`stdout: ${stdout}`);
 		let values = stdout.split('\n');
 		if (values.length > 0) {
 			// @ts-ignore
