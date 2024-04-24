@@ -8,9 +8,6 @@ inputs:
     description: 'Diff branch'
     required: false
     default: 'master'
-  currentBranch:
-    description: 'Current branch'
-    required: true
 outputs:
   filtered:
     description: 'Filtered list'

@@ -1,16 +1,10 @@
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import * as fs from "node:fs";
-import { exec as childExec } from 'child_process';
 
 async function run() {
 	const jsonPath = core.getInput('list')
 	const diffBranch = core.getInput('diffBranch')
-	const currentBranch = core.getInput('currentBranch')
-
-	core.debug(`List: ${jsonPath}`)
-	core.debug(`Diff Branch: ${diffBranch}`)
-	core.debug(`Current Branch: ${currentBranch}`)
 
 	const content = await fs.promises.readFile(jsonPath, 'utf8')
 	const list = JSON.parse(content)
@@ -21,10 +15,9 @@ async function run() {
 	}
 
 	let diff = ''
-	const command = 'git diff --name-only master | cut -d / -f 1 | uniq | grep -v "\\."'
+	const command = `git diff --name-only ${{diffBranch}} | cut -d / -f 1 | uniq | grep -v "\\."`
 	try {
 		diff = await execHelper('bash', ['-c', command])
-		core.debug(`Diff: ${diff}`)
 	} catch (error) {
 		// @ts-ignore
 		core.error(error)
