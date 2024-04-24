@@ -26200,7 +26200,7 @@ function run() {
             return;
         }
         let diff = [];
-        yield exec.exec(`git diff --name-only refs/heads/${diffBranch} refs/heads/${currentBranch} | cut -d / -f 1 | uniq | grep -v "\\."`, [], {
+        yield exec.exec(`git diff --name-only ${diffBranch} ${currentBranch} | cut -d / -f 1 | uniq | grep -v "\\."`, [], {
             listeners: {
                 stdout: (data) => {
                     let value = data.toString();
