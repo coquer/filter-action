@@ -8,6 +8,10 @@ async function run() {
 	const diffBranch = core.getInput('diffBranch')
 	const currentBranch = core.getInput('currentBranch')
 
+	core.debug(`List: ${jsonPath}`)
+	core.debug(`Diff Branch: ${diffBranch}`)
+	core.debug(`Current Branch: ${currentBranch}`)
+
 	const content = await fs.promises.readFile(jsonPath, 'utf8')
 	const list = JSON.parse(content)
 
@@ -26,14 +30,16 @@ async function run() {
 		core.error(error)
 	}
 
-	if (diff.length === 0) {
+	const splitString = diff.split('\n')
+
+	if (splitString.length === 0) {
 		core.info('No files to check')
 		return
 	}
 
 	const filteredList = list.filter(({service}: any) => {
 		// @ts-ignore
-		return diff.includes(service)
+		return splitString.includes(service)
 	})
 
 	if (filteredList.length === 0) {
