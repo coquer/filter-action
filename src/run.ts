@@ -19,8 +19,9 @@ async function run() {
 	try {
 		diff = await execHelper('bash', ['-c', command])
 	} catch (error) {
-		// @ts-ignore
-		core.error(error)
+		core.setOutput('filtered', '')
+		core.info('No files to check')
+		return
 	}
 
 	const splitString = diff.split('\n')

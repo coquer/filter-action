@@ -26192,7 +26192,6 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const jsonPath = core.getInput('list');
         const diffBranch = core.getInput('diffBranch');
-        const currentBranch = core.getInput('currentBranch');
         const content = yield fs.promises.readFile(jsonPath, 'utf8');
         const list = JSON.parse(content);
         if (list.length === 0) {
@@ -26200,22 +26199,23 @@ function run() {
             return;
         }
         let diff = '';
-        const command = 'git diff --name-only master | cut -d / -f 1 | uniq | grep -v "\\."';
+        const command = `git diff --name-only ${{ diffBranch }} | cut -d / -f 1 | uniq | grep -v "\\."`;
         try {
             diff = yield execHelper('bash', ['-c', command]);
-            core.debug(`Diff: ${diff}`);
         }
         catch (error) {
-            // @ts-ignore
-            core.error(error);
+            core.setOutput('filtered', '');
+            core.info('No files to check');
+            return;
         }
-        if (diff.length === 0) {
+        const splitString = diff.split('\n');
+        if (splitString.length === 0) {
             core.info('No files to check');
             return;
         }
         const filteredList = list.filter(({ service }) => {
             // @ts-ignore
-            return diff.includes(service);
+            return splitString.includes(service);
         });
         if (filteredList.length === 0) {
             core.info('No files to check');
