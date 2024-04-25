@@ -15,7 +15,7 @@ async function run() {
 	}
 
 	let diff = ''
-	const command = `git diff --name-only ${{diffBranch}} | cut -d / -f 1 | uniq | grep -v "\\."`
+	const command = 'git diff --name-only master | cut -d / -f 1 | uniq | grep -v "\\."'
 	try {
 		diff = await execHelper('bash', ['-c', command])
 	} catch (error) {
