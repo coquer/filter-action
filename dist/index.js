@@ -26192,6 +26192,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const jsonPath = core.getInput('list');
         const diffBranch = core.getInput('diffBranch');
+        const lastCommit = core.getInput('lastCommit');
         const content = yield fs.promises.readFile(jsonPath, 'utf8');
         const list = JSON.parse(content);
         if (list.length === 0) {
@@ -26199,7 +26200,17 @@ function run() {
             return;
         }
         let diff = '';
-        const command = 'git diff --name-only master | cut -d / -f 1 | uniq | grep -v "\\."';
+        let command = '';
+        if (diffBranch === '' && lastCommit === '') {
+            core.error('No diff branch specified');
+            return;
+        }
+        if (lastCommit != '') {
+            command = `git diff --name-only ${{ lastCommit }} HEAD | cut -d / -f 1 | uniq | grep -v "\\."`;
+        }
+        else {
+            command = `git diff --name-only ${{ diffBranch }} | cut -d / -f 1 | uniq | grep -v "\\."`;
+        }
         try {
             diff = yield execHelper('bash', ['-c', command]);
         }

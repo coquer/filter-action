@@ -7,7 +7,11 @@ inputs:
   diffBranch:
     description: 'Diff branch'
     required: false
-    default: 'master'
+    default: ''
+  lastCommit:
+    description: 'Last commit'
+    required: false
+    default: ''
 outputs:
   filtered:
     description: 'Filtered list'
