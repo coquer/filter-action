@@ -23,7 +23,7 @@ async function run() {
 		return
 	}
 
-	if (lastCommit != '') {
+	if (lastCommit != '' && lastCommit !== '0000000000000000000000000000000000000000') {
 		command = `git diff --name-only ${lastCommit} HEAD | cut -d / -f 1 | uniq | grep -v "\\."`
 	} else {
 		command = `git diff --name-only ${diffBranch} | cut -d / -f 1 | uniq | grep -v "\\."`
