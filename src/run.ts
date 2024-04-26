@@ -5,6 +5,7 @@ import * as fs from "node:fs";
 async function run() {
 	const jsonPath = core.getInput('list')
 	const diffBranch = core.getInput('diffBranch')
+	const lastCommit = core.getInput('lastCommit')
 
 	const content = await fs.promises.readFile(jsonPath, 'utf8')
 	const list = JSON.parse(content)
@@ -15,7 +16,19 @@ async function run() {
 	}
 
 	let diff = ''
-	const command = 'git diff --name-only master | cut -d / -f 1 | uniq | grep -v "\\."'
+	let command = ''
+
+	if (diffBranch === '' && lastCommit === '') {
+		core.error('No diff branch specified')
+		return
+	}
+
+	if (lastCommit != '') {
+		command = `git diff --name-only ${{lastCommit}} HEAD | cut -d / -f 1 | uniq | grep -v "\\."`
+	} else {
+		command = `git diff --name-only ${{diffBranch}} | cut -d / -f 1 | uniq | grep -v "\\."`
+	}
+
 	try {
 		diff = await execHelper('bash', ['-c', command])
 	} catch (error) {
