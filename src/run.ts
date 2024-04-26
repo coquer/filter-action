@@ -24,9 +24,9 @@ async function run() {
 	}
 
 	if (lastCommit != '') {
-		command = `git diff --name-only ${{lastCommit}} HEAD | cut -d / -f 1 | uniq | grep -v "\\."`
+		command = `git diff --name-only ${lastCommit} HEAD | cut -d / -f 1 | uniq | grep -v "\\."`
 	} else {
-		command = `git diff --name-only ${{diffBranch}} | cut -d / -f 1 | uniq | grep -v "\\."`
+		command = `git diff --name-only ${diffBranch} | cut -d / -f 1 | uniq | grep -v "\\."`
 	}
 
 	try {
