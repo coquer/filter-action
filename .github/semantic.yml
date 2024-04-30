@@ -1,0 +1,3 @@
+commitsOnly: true
+allowRevertCommits: true
+allowMergeCommits: true
