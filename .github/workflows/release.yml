@@ -3,7 +3,7 @@ name: Release management
 on:
   push:
     branches:
-      - master
+      - solido
 
 jobs:
   release-management:

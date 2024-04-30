@@ -2,11 +2,11 @@ name: Test
 on:
   push:
     branches:
-      - master
+      - solido
 
   pull_request:
     branches:
-      - master
+      - solido
 
 jobs:
   test-github-actions:
