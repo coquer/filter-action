@@ -19,7 +19,7 @@
     "@actions/exec": "^1.1.1",
     "@actions/io": "^1.0.0",
     "@actions/tool-cache": "2.0.1",
-    "@octokit/graphql": "^5.0.0",
+    "@octokit/graphql": "^8.1.1",
     "@octokit/request": "^9.1.1",
     "@octokit/request-error": "^3.0.0",
     "@octokit/rest": "^19.0.0",
