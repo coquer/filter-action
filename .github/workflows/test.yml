@@ -30,7 +30,7 @@ jobs:
         id: verify
         uses: ./
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SECRET_TOKEN }}
           list: './matrix.json'
 
       - name: get outputs from
