@@ -1,0 +1,21 @@
+name: Release management
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release-management:
+    runs-on: ubuntu-latest
+    outputs:
+        release-to-prod: ${{ steps.release.outputs.release_created }}
+        tag: ${{ steps.release.outputs.tag_name }}
+        sha: ${{ steps.release.outputs.sha }}
+    steps:
+      - name: Manage release
+        uses: google-github-actions/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: .github/release-please-config.json
+          manifest-file: .github/.release-please-manifest.json
