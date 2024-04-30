@@ -13,6 +13,10 @@ async function run() {
     repository: core.getInput('repository') || process.env.GITHUB_REPOSITORY,
   }
 
+  core.info('list: ' + inputs.list);
+  core.info('ref: ' + inputs.ref);
+  core.info('repository: ' + inputs.repository);
+
   if (!inputs.token) {
     core.setFailed('No token provided');
     return;
@@ -90,16 +94,44 @@ async function getBaseHead(octokit, owner, repo, ref) {
   const defaultBranch = await getDefaultBranch(octokit, owner, repo);
   const lastTag = await getLastTag(octokit, owner, repo);
 
+  core.info('defaultBranch: ' + defaultBranch);
+  core.info('lastTag: ' + lastTag);
+
   if (ref === defaultBranch) {
+    core.info('diff: ' + `${lastTag}...${defaultBranch}`);
     return `${lastTag}...${defaultBranch}`;
   }
 
   if (lastTag === '') {
     const firstCommit = await getFirstCommit(octokit, owner, repo);
-
+    core.info('diff: ' + `${firstCommit}...${ref}`)
     return `${firstCommit}...${ref}`;
   }
 
+  const refParts = ref.split('/');
+
+  if (refParts.length === 2) {
+    const prNumber = refParts[0];
+    const merge = refParts[1];
+
+    if (isNaN(prNumber) || merge !== 'merge') {
+      core.setFailed('Invalid pull request reference');
+      return;
+    }
+
+    const {data} = await octokit.pulls.get({
+      owner,
+      repo,
+      pull_number: prNumber
+    });
+
+    core.info('diff: ' + `${lastTag}...${data.head.sha}`);
+
+    return `${lastTag}...${data.head.sha}`;
+  }
+
+  // by now we know that ref is a branch, so we can use it directly.
+  core.info('diff: ' + `${lastTag}...${ref}`);
 
   return `${lastTag}...${ref}`;
 }
