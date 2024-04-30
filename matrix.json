@@ -1,0 +1,28 @@
+[
+  {
+    "service": "organization",
+    "kustomize": "non-prod",
+    "type": "go"
+  },
+  {
+    "service": "dummy-calendar",
+    "kustomize": "non-prod",
+    "type": "go"
+  },
+  {
+    "service": "dummy-coverage",
+    "kustomize": "test",
+    "type": "go"
+  },
+  {
+    "service": "dummy-price-curves",
+    "kustomize": "test",
+    "type": "go"
+  },
+  {
+    "service": "dummy-web",
+    "kustomize": "non-prod,prod",
+    "type": "nodejs"
+  }
+]
+

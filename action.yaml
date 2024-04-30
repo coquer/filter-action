@@ -1,17 +1,18 @@
-name: Filter action
-description: 'Filter action'
+name: Matrix filter release
+description: 'Simple application to allow release of mono-repos deployments'
 inputs:
-  list:
-    description: 'Matrix list path'
+  token:
+    description: 'Github token'
     required: true
-  diffBranch:
-    description: 'Diff branch'
+  list:
+    description: 'List to filter'
+    required: true
+  ref:
+    description: 'Ref, example master or branch name'
     required: false
-    default: ''
-  lastCommit:
-    description: 'Last commit'
+  repository:
+    description: 'Repository name'
     required: false
-    default: ''
 outputs:
   filtered:
     description: 'Filtered list'
