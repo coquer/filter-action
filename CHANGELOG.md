@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/coquer/matrix-filter-release/compare/v1.0.2...v1.0.3) (2024-05-01)
+
+
+### Bug Fixes
+
+* sort commits ascending order ([f4ad43d](https://github.com/coquer/matrix-filter-release/commit/f4ad43d797121b312599af056c31d387132502f9))
+
 ## [1.0.2](https://github.com/coquer/matrix-filter-release/compare/v1.0.1...v1.0.2) (2024-05-01)
 
 
