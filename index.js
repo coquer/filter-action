@@ -110,7 +110,7 @@ async function getBaseHead(octokit, owner, repo, ref) {
     return `${lastTag}...${defaultBranch}`;
   }
 
-  if (lastTag === '') {
+  if (lastTag === '' && reference !== defaultBranch) {
     const firstCommit = await getFirstCommit(octokit, owner, repo);
     core.info('diff: ' + `${firstCommit}...${reference}`)
     return `${firstCommit}...${reference}`;
