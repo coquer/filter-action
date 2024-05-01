@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/coquer/matrix-filter-release/compare/v1.0.5...v1.0.6) (2024-05-01)
+
+
+### Miscellaneous
+
+* optimize if logic ([fbe6e2a](https://github.com/coquer/matrix-filter-release/commit/fbe6e2a782230314ea669c49ae6b6dfeceb87e02))
+
 ## [1.0.5](https://github.com/coquer/matrix-filter-release/compare/v1.0.4...v1.0.5) (2024-05-01)
 
 
