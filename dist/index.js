@@ -32764,11 +32764,11 @@ async function run() {
 async function getBaseHead(octokit, owner, repo, ref) {
   const defaultBranch = await getDefaultBranch(octokit, owner, repo);
   const lastTag = await getLastTag(octokit, owner, repo);
+  const reference = await calculateRef(octokit, owner, repo, ref);
 
   core.info('defaultBranch: ' + defaultBranch);
   core.info('lastTag: ' + lastTag);
-
-  const reference = await calculateRef(octokit, owner, repo, ref);
+  core.info('reference: ' + reference);
 
   if (reference === defaultBranch) {
     if (lastTag === '') {
@@ -32781,20 +32781,7 @@ async function getBaseHead(octokit, owner, repo, ref) {
     return `${lastTag}...${defaultBranch}`;
   }
 
-  if (lastTag === '' && reference !== defaultBranch) {
-    const firstCommit = await getFirstCommit(octokit, owner, repo);
-    core.info('diff: ' + `${firstCommit}...${reference}`)
-    return `${firstCommit}...${reference}`;
-  }
-
-  if (reference !== defaultBranch) {
-    core.info('diff: ' + `${defaultBranch}...${reference}`);
-    return `${defaultBranch}...${reference}`;
-  }
-
-  core.info('diff: ' + `${lastTag}...${ref}`);
-
-  return `${lastTag}...${reference}`;
+  return `${defaultBranch}...${reference}`;
 }
 
 async function calculateRef(octokit, owner, repo, ref) {
