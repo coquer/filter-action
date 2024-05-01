@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/coquer/matrix-filter-release/compare/v1.0.0...v1.0.1) (2024-05-01)
+
+
+### Bug Fixes
+
+* prevent fail on merge branch ([e56cc7b](https://github.com/coquer/matrix-filter-release/commit/e56cc7b32b1566acbe90b8e329254f05ee7152af))
+
 ## 1.0.0 (2024-04-30)
 
 
