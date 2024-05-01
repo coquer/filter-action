@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/coquer/matrix-filter-release/compare/v1.0.3...v1.0.4) (2024-05-01)
+
+
+### Bug Fixes
+
+* diff between reference and default branch ([573cb05](https://github.com/coquer/matrix-filter-release/commit/573cb058da7b0d440326919a722174ae4c6d8b16))
+
 ## [1.0.3](https://github.com/coquer/matrix-filter-release/compare/v1.0.2...v1.0.3) (2024-05-01)
 
 
