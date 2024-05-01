@@ -70,7 +70,7 @@ async function run() {
 
   if (!files) {
     core.info('No files changed in the commit');
-    core.setOutput('filtered', '');
+    core.setOutput('filtered', '[]');
     return;
   }
 
@@ -83,7 +83,7 @@ async function run() {
 
   if (!filteredMatrix) {
     core.info('No services found in the list');
-    core.setOutput('filtered', '');
+    core.setOutput('filtered', '[]');
     return;
   }
 
@@ -100,7 +100,6 @@ async function getBaseHead(octokit, owner, repo, ref) {
   const reference = await calculateRef(octokit, owner, repo, ref);
 
   if (reference === defaultBranch) {
-
     if (lastTag === '') {
       const firstCommit = await getFirstCommit(octokit, owner, repo);
       core.info('diff: ' + `${firstCommit}...${defaultBranch}`);
@@ -115,6 +114,11 @@ async function getBaseHead(octokit, owner, repo, ref) {
     const firstCommit = await getFirstCommit(octokit, owner, repo);
     core.info('diff: ' + `${firstCommit}...${reference}`)
     return `${firstCommit}...${reference}`;
+  }
+
+  if (reference !== defaultBranch) {
+    core.info('diff: ' + `${defaultBranch}...${reference}`);
+    return `${defaultBranch}...${reference}`;
   }
 
   core.info('diff: ' + `${lastTag}...${ref}`);
