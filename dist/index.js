@@ -32848,6 +32848,9 @@ async function getFirstCommit(octokit, owner, repo) {
     return '';
   }
 
+  // Sort the commits by date in ascending order
+  data.sort((a, b) => new Date(a.commit.author.date) - new Date(b.commit.author.date));
+
   return data[0].sha;
 }
 
