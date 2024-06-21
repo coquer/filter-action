@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/coquer/matrix-filter-release/compare/v1.0.6...v1.1.0) (2024-06-21)
+
+
+### Features
+
+* add filter based on keys ([bddb96d](https://github.com/coquer/matrix-filter-release/commit/bddb96d8d60d11df79ee1c92b82ecf238c33936d))
+
+
+### Miscellaneous
+
+* upgrade deps ([133aa7b](https://github.com/coquer/matrix-filter-release/commit/133aa7b3d52a44a6ed9f733dcd8bde7ca6206a82))
+
 ## [1.0.6](https://github.com/coquer/matrix-filter-release/compare/v1.0.5...v1.0.6) (2024-05-01)
 
 
