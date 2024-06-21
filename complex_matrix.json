@@ -1,0 +1,14 @@
+{
+  "isComplex": true,
+  "services": {
+    "service1": {
+      "description": "service1"
+    },
+    "resources": {
+      "description": "service2"
+    },
+    "app": {
+      "description": "main application service"
+    }
+  }
+}

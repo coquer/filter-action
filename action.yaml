@@ -13,6 +13,14 @@ inputs:
   repository:
     description: 'Repository name'
     required: false
+  filter_by:
+    description: 'Filter by, to support complex json object paths for example: service.name'
+    required: false
+    default: 'service'
+  is_slice:
+    description: 'Is slice, to support slice of the list'
+    required: false
+    default: 'false'
 outputs:
   filtered:
     description: 'Filtered list'

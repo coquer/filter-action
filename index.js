@@ -11,11 +11,14 @@ async function run() {
     list: core.getInput('list') || process.env.MATRIX_LIST,
     ref: core.getInput('ref') || process.env.GITHUB_REF_NAME,
     repository: core.getInput('repository') || process.env.GITHUB_REPOSITORY,
+    is_slice: core.getInput('is_slice') || process.env.IS_SLICE,
+    filter_by: core.getInput('filter_by') || process.env.FILTER_BY
   }
 
   core.info('list: ' + inputs.list);
   core.info('ref: ' + inputs.ref);
   core.info('repository: ' + inputs.repository);
+  core.info('filter_by: ' + inputs.filter_by);
 
   if (!inputs.token) {
     core.setFailed('No token provided');
@@ -79,7 +82,19 @@ async function run() {
       .filter((item, index) => item.indexOf('/') === -1 && item.length > 0);
   const uniqueDirs = filtered.filter((item, index) => filtered.indexOf(item) === index);
 
-  const filteredMatrix = list.filter(({service}) => uniqueDirs.includes(service));
+  const filterBy = inputs.filter_by;
+  const isSlice = inputs.is_slice === 'true';
+
+  let filteredMatrix = null;
+
+  if (false === isSlice) {
+    filteredMatrix = list.filter(({service}) => uniqueDirs.includes(service));
+  } else {
+    const selectedList = list[filterBy];
+    const selectedListKeys = Object.keys(selectedList);
+    filteredMatrix = selectedListKeys.filter((key) => uniqueDirs.includes(key));
+  }
+
 
   if (!filteredMatrix) {
     core.info('No services found in the list');
