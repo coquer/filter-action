@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/coquer/matrix-filter-release/compare/v1.1.1...v1.1.2) (2024-06-26)
+
+
+### Miscellaneous
+
+* add support for list ([e505eeb](https://github.com/coquer/matrix-filter-release/commit/e505eeb12e5787f8841553e909c8d7a78eb7322f))
+
 ## [1.1.1](https://github.com/coquer/matrix-filter-release/compare/v1.1.0...v1.1.1) (2024-06-24)
 
 
