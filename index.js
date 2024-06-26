@@ -90,9 +90,13 @@ async function run() {
   if (false === isSlice) {
     filteredMatrix = list.filter(({service}) => uniqueDirs.includes(service));
   } else {
-    const selectedList = list[filterBy];
-    const selectedListKeys = Object.keys(selectedList);
-    filteredMatrix = selectedListKeys.filter((key) => uniqueDirs.includes(key));
+    let selectedItem = list[filterBy];
+
+    if (typeof selectedItem === 'object' && selectedItem[Object.keys(selectedItem)[0]] instanceof Object) {
+        selectedItem = Object.keys(selectedItem);
+    }
+
+    filteredMatrix = selectedItem.filter((key) => uniqueDirs.includes(key));
   }
 
 
